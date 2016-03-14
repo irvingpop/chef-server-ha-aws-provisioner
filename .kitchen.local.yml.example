@@ -1,0 +1,26 @@
+---
+provisioner:
+  name: chef_zero
+  chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
+#  solo_rb:
+#    http_proxy: http://192.168.1.1
+#    https_proxy: http://192.168.2.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[supermarket-omnibus-cookbook::default]
+    attributes:
+      chef_server_ha_aws_provisioner:
+        chef_server_url: https://chefserver.mycorp.com
+        chef_oauth2_app_id: my_example_app_id_my_example_app_id
+        chef_oauth2_secret: my_example_secret_my_example_secret
+        chef_oauth2_verify_ssl: false
+        config:
+          nginx:
+            force_ssl: false
+            log_rotation:
+              num_to_keep: 5
+#      supermarket_package:
+#        packagecloud_repo: 'chef/current'
+#        package_source: http://bit.ly/98K8eH
